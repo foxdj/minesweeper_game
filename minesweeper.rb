@@ -25,11 +25,54 @@ class MinesweeperGame
 
     end
 
+    def get_pos
+        pos = nil
+        until pos && valid_pos?(pos)
+            puts "Enter a position within the board (e.g. '1,3')"
+            print ">"
+
+            begin
+                pos = parse_pos(gets.chomp)
+            rescue
+                puts "Invalid position"
+                print ""
+                pos = nil
+            end
+        end
+
+        pos
+    end
+
+    def get_action
+        action = nil
+        until action && valid_action?(action)
+            available_actions
+            action = gets.chomp
+        end
+    end
+
+    def available_actions
+        puts "Enter an action:"
+        puts "For reveal, type 'r'"
+        puts "For flag, type 'f'"
+        print ">"
+    end
+
+    def parse_pos(string)
+        string.split(",").map { |char| Integer(char) }
+    end
+
     def solved?
         board.solved?
     end
 
+    def valid_pos?(pos)
 
+    end
+
+    def valid_action?(action)
+
+    end
 
 
 end
