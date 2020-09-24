@@ -1,14 +1,12 @@
 # board.rb
+require_relative 'tile'
 
 class Board
-    def self.empty_grid
-        Array.new(9) do
-            Array.new(9) { Tile.new("*") }
-        end
-    end
+    attr_reader :grid_size, :num_bombs
 
-    def initialize(grid = self.empty_grid)
-        @grid = grid
+    def initialize(grid_size, num_bombs)
+        @grid_size, @num_bombs = grid_size, num_bombs
+        generate_board
     end
 
     def [](pos)
@@ -16,19 +14,29 @@ class Board
         grid[x][y]
     end
 
-    def []=(pos, value)
-        x, y = pos
-        tile = grid[x][y]
-        tile.value = value
+    def lost?
+        @grid.flatten.any? { |tile| tile.bombed? && tile.revealed? }
     end
 
-    def render
-
+    def won?
+        @grid.flatten.all? { |tile| tile.bombed? != tile.revealed? }
     end
 
-    def solved?
-
+    def render(game_over = false)
+        @grid.map do |row|
+            row.map do |tile|
+                game_over ? tile.full_reveal : tile.render
+            end.join("")
+        end.join("\n")
     end
+
+    def game_over
+        render(true)
+    end
+
+    private
+
+    
 
 
 end

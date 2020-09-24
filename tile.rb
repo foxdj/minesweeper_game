@@ -90,5 +90,4 @@ class Tile
             adjacent_bomb_count == 0 ? "_" : adjacent_bomb_count.to_s
         end
     end
-
 end
