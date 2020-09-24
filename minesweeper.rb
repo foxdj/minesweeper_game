@@ -80,15 +80,28 @@ class MinesweeperGame
     end
 
     def valid_action?(action)
-
+        valid_actions = ['r', 'R', 'f', 'F', 's', 'S']
+        valid_actions.include?(action)
     end
 
     def perform_turn(pos, action)
+        tile = @board[pos]
 
+        case action
+        when 'f' || 'F'
+            tile.toggle_flag
+        when 'r' || 'R'
+            tile.reveal
+        when 's' || 'S'
+            save
+        end
     end
 
     def save
+        puts "Enter filename to save at:"
+        filename = gets.chomp
 
+        File.write(filename, YAML.dump(self))
     end
 
 end
