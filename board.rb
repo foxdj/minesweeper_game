@@ -36,7 +36,25 @@ class Board
 
     private
 
-    
+    def generate_board
+        @grid = Array.new(@grid_size) do |row|
+            Array.new(@grid_size) { |col| Tile.new(self, [row,col]) }
+        end
+        plant_bombs
+    end
 
+    def plant_bombs
+        bombs_placed = 0
+        while bombs_placed < @num_bombs
+            rand_pos = Array.new(2) { rand(@grid_size) }
+
+            tile = self[rand_pos]
+            next if tile.bombed?
+
+            tile.plant_bomb
+            bombs_placed += 1
+        end
+        nil
+    end
 
 end
