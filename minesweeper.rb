@@ -76,7 +76,8 @@ class MinesweeperGame
 
     def valid_pos?(pos)
         pos.length == 2 &&
-
+            pos.is_a?(Array) &&
+            pos.all? { |x| x.between?(0, @board.size - 1) }
     end
 
     def valid_action?(action)
