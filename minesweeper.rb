@@ -15,14 +15,23 @@ class MinesweeperGame
     end
 
     def play
-        take_turn until solved?
-        puts "Congrats, you win!"
+        until @board.lost? || @board.won?
+            @board.render
+            take_turn
+        end
+
+        if @board.won?
+            puts "Congrats, you win!"
+        elsif @board.lost?
+            puts "*** Bomb hit! ***"
+            @board.game_over
+        end
     end
 
     def take_turn
         pos = get_pos
         action = get_action
-
+        perform_turn(pos, action)
     end
 
     def get_pos
@@ -53,8 +62,9 @@ class MinesweeperGame
 
     def available_actions
         puts "Enter an action:"
-        puts "For reveal, type 'r'"
-        puts "For flag, type 'f'"
+        puts "To reveal, type 'r'"
+        puts "To flag, type 'f'"
+        puts "To save, type 's'"
         print ">"
     end
 
@@ -62,11 +72,10 @@ class MinesweeperGame
         string.split(",").map { |char| Integer(char) }
     end
 
-    def solved?
-        board.solved?
-    end
+    private
 
     def valid_pos?(pos)
+        pos.length == 2 &&
 
     end
 
@@ -74,6 +83,13 @@ class MinesweeperGame
 
     end
 
+    def perform_turn(pos, action)
+
+    end
+
+    def save
+
+    end
 
 end
 
