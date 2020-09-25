@@ -1,5 +1,6 @@
 # board.rb
 require_relative 'tile'
+require 'byebug'
 
 class Board
     attr_reader :grid_size, :num_bombs
@@ -11,7 +12,11 @@ class Board
 
     def [](pos)
         x, y = pos
-        grid[x][y]
+        @grid[x][y]
+    end
+
+    def size
+        @grid.size
     end
 
     def lost?

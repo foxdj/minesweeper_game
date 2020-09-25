@@ -16,7 +16,7 @@ class MinesweeperGame
 
     def play
         until @board.lost? || @board.won?
-            @board.render
+            puts @board.render
             take_turn
         end
 
@@ -24,7 +24,7 @@ class MinesweeperGame
             puts "Congrats, you win!"
         elsif @board.lost?
             puts "*** Bomb hit! ***"
-            @board.game_over
+            puts @board.game_over
         end
     end
 
@@ -87,7 +87,7 @@ class MinesweeperGame
 
     def perform_turn(pos, action)
         tile = @board[pos]
-
+        
         case action
         when 'f' || 'F'
             tile.toggle_flag
